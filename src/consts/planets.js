@@ -6,6 +6,13 @@ import {
   MOON_CHARACTERISTICS,
   JUPITER_CHARACTERISTICS,
 } from './planets-characteristics';
+import { GRAVITY_CONSTANT } from './gravity';
+
+const getOrbitalSpeed = (distance, attractorMass = 0) => {
+  const currentAttractorMass =
+    attractorMass !== 0 ? attractorMass : SUN_CHARACTERISTICS.MASS;
+  return Math.sqrt((GRAVITY_CONSTANT * currentAttractorMass) / distance);
+};
 
 export const planets = [
   {
@@ -23,7 +30,7 @@ export const planets = [
     name: 'Mercury',
     mass: MERCURY_CHARACTERISTICS.MASS,
     position: MERCURY_CHARACTERISTICS.DEFAULT_POSITION,
-    velocity: { x: 0, y: 0.000039 },
+    velocity: { x: 0, y: getOrbitalSpeed(MERCURY_CHARACTERISTICS.DISTANCE) },
     color: 'grey',
     size: MERCURY_CHARACTERISTICS.SIZE,
     strokeColor: 'red',
@@ -33,17 +40,19 @@ export const planets = [
     name: 'Venus',
     mass: VENUS_CHARACTERISTICS.MASS,
     position: VENUS_CHARACTERISTICS.DEFAULT_POSITION,
-    velocity: { x: 0, y: 0.00003 },
+    velocity: { x: 0, y: getOrbitalSpeed(VENUS_CHARACTERISTICS.DISTANCE) },
     color: 'yellow',
     size: VENUS_CHARACTERISTICS.SIZE,
     strokeColor: 'red',
   },
   {
-    id: 4,
     name: 'Earth',
     mass: EARTH_CHARACTERISTICS.MASS,
     position: EARTH_CHARACTERISTICS.DEFAULT_POSITION,
-    velocity: { x: 0, y: 0.000026 },
+    velocity: {
+      x: 0,
+      y: getOrbitalSpeed(EARTH_CHARACTERISTICS.DISTANCE),
+    },
     color: 'blue',
     size: EARTH_CHARACTERISTICS.SIZE,
     strokeColor: '61dafb',
@@ -53,7 +62,7 @@ export const planets = [
     name: 'Jupiter',
     mass: JUPITER_CHARACTERISTICS.MASS,
     position: JUPITER_CHARACTERISTICS.DEFAULT_POSITION,
-    velocity: { x: 0, y: 0.00001 },
+    velocity: { x: 0, y: getOrbitalSpeed(JUPITER_CHARACTERISTICS.DISTANCE) },
     color: 'brown',
     size: JUPITER_CHARACTERISTICS.SIZE,
     strokeColor: 'red',
@@ -61,11 +70,14 @@ export const planets = [
   // {
   //   id: 6,
   //   name: 'Moon',
-  //   mass: MOON_MASS,
-  //   position: MOON_DEFAULT_POSITION,
-  //   velocity: { x: 0, y: 0.00002599 },
+  //   mass: MOON_CHARACTERISTICS.MASS,
+  //   position: MOON_CHARACTERISTICS.DEFAULT_POSITION,
+  //   velocity: {
+  //     x: 0,
+  //     y: getOrbitalSpeed(EARTH_CHARACTERISTICS.DISTANCE),
+  //   },
   //   color: 'c6c3b5',
-  //   size: MOON_SIZE,
+  //   size: MOON_CHARACTERISTICS.SIZE,
   //   strokeColor: '61dafb',
   // },
 ];
