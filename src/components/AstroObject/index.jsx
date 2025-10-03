@@ -1,6 +1,8 @@
+import { Graphics } from 'pixi.js';
+
 const AstroObject = ({ color, size, position, strokeColor }) => {
   return (
-    <pixiGraphics
+    <Graphics
       position={position}
       draw={(graphics) => {
         graphics.clear();

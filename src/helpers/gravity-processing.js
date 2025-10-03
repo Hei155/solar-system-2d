@@ -43,8 +43,8 @@ export const updatePlanet = (planet, planets) => {
       y: (planet.velocity.y += (totalYForce / planet.mass) * STEP),
     },
     position: {
-      x: (planet.position.x += planet.velocity.x / SCALE * STEP),
-      y: (planet.position.y += planet.velocity.y / SCALE * STEP),
+      x: (planet.position.x += (planet.velocity.x / SCALE) * STEP),
+      y: (planet.position.y += (planet.velocity.y / SCALE) * STEP),
     },
   };
 

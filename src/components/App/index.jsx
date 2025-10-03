@@ -1,7 +1,7 @@
 import { Application, extend } from '@pixi/react';
 import { Container, Graphics, Sprite, FillGradient } from 'pixi.js';
 import AstroField from '../AstroField';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   planets,
   SUN_CHARACTERISTICS,
@@ -42,7 +42,7 @@ export default function App() {
         sharedTicker
       >
         <AstroField planets={currentPlanets} setPlanets={setCurrentPlanets} />
-        <pixiGraphics
+        <Graphics
           position={currentPlanets[0].position}
           draw={(g) => {
             g.clear();
