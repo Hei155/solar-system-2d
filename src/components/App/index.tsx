@@ -6,8 +6,10 @@ import {
   planets,
   SUN_CHARACTERISTICS,
   EARTH_CHARACTERISTICS,
+  FULL_HEIGHT,
+  FULL_WIDTH,
 } from '../../consts';
-import { FULL_HEIGHT, FULL_WIDTH } from '../../consts';
+import SettingsPanel from '../SettingsPanel';
 
 extend({
   Container,
@@ -34,7 +36,8 @@ export default function App() {
   const [currentPlanets, setCurrentPlanets] = useState(planets);
 
   return (
-    <div>
+    <div className="app">
+      <SettingsPanel />
       <Application
         width={FULL_WIDTH}
         height={FULL_HEIGHT}
@@ -42,7 +45,8 @@ export default function App() {
         sharedTicker
       >
         <AstroField planets={currentPlanets} setPlanets={setCurrentPlanets} />
-        <Graphics
+        <pixiGraphics
+          /* eslint-disable react/no-unknown-property */
           position={currentPlanets[0].position}
           draw={(g) => {
             g.clear();
@@ -64,6 +68,7 @@ export default function App() {
             );
             g.cut();
           }}
+          /* eslint-enable react/no-unknown-property */
         />
       </Application>
     </div>

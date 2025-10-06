@@ -1,0 +1,9 @@
+.settings {
+  position: absolute;
+  top: 100px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
+}

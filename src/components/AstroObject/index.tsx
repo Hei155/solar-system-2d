@@ -1,8 +1,19 @@
-import { Graphics } from 'pixi.js';
+interface AstroObjectProps {
+  color: string;
+  size: number;
+  position: { x: number; y: number };
+  strokeColor: string;
+}
 
-const AstroObject = ({ color, size, position, strokeColor }) => {
+const AstroObject = ({
+  color,
+  size,
+  position,
+  strokeColor,
+}: AstroObjectProps) => {
   return (
-    <Graphics
+    /* eslint-disable react/no-unknown-property */
+    <pixiGraphics
       position={position}
       draw={(graphics) => {
         graphics.clear();

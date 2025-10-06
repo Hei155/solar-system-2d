@@ -1,5 +1,6 @@
 import { GRAVITY_CONSTANT, STEP } from '../consts';
 import { SUN_CHARACTERISTICS, EARTH_CHARACTERISTICS } from '../consts';
+import { Planet } from '../types';
 
 const UNIT =
   SUN_CHARACTERISTICS.DEFAULT_POSITION.x -
@@ -7,7 +8,7 @@ const UNIT =
 
 const SCALE = 1.4981e11 / UNIT;
 
-export const processGravity = (planetA, planetB) => {
+export const processGravity = (planetA: Planet, planetB: Planet) => {
   const dx = (planetB.position.x - planetA.position.x) * SCALE;
   const dy = (planetB.position.y - planetA.position.y) * SCALE;
 
@@ -26,7 +27,7 @@ export const processGravity = (planetA, planetB) => {
   return { forceX, forceY };
 };
 
-export const updatePlanet = (planet, planets) => {
+export const updatePlanet = (planet: Planet, planets: Planet[]) => {
   let totalXForce = 0;
   let totalYForce = 0;
 

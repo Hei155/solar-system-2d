@@ -1,8 +1,14 @@
 import { useTick } from '@pixi/react';
 import AstroObject from '../AstroObject';
 import { updatePlanet } from '../../helpers';
+import { Planet } from '../../types';
 
-const AstroField = ({ planets, setPlanets }) => {
+interface AstroFieldProps {
+  planets: Planet[];
+  setPlanets: (planets: Planet[]) => void;
+}
+
+const AstroField = ({ planets, setPlanets }: AstroFieldProps) => {
   useTick(() => {
     for (const planet of planets) {
       const newPlanet = updatePlanet(planet, planets);
@@ -19,7 +25,6 @@ const AstroField = ({ planets, setPlanets }) => {
       color={color}
       size={size}
       strokeColor={strokeColor}
-      velocity={velocity}
     />
   ));
 };

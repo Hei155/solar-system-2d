@@ -8,7 +8,7 @@ import {
 } from './planets-characteristics';
 import { GRAVITY_CONSTANT } from './gravity';
 
-const getOrbitalSpeed = (distance, attractorMass = 0) => {
+const getOrbitalSpeed = (distance: number, attractorMass = 0) => {
   const currentAttractorMass =
     attractorMass !== 0 ? attractorMass : SUN_CHARACTERISTICS.MASS;
   return Math.sqrt((GRAVITY_CONSTANT * currentAttractorMass) / distance);
@@ -46,6 +46,7 @@ export const planets = [
     strokeColor: 'red',
   },
   {
+    id: 4,
     name: 'Earth',
     mass: EARTH_CHARACTERISTICS.MASS,
     position: EARTH_CHARACTERISTICS.DEFAULT_POSITION,
