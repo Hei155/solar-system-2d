@@ -8,6 +8,7 @@ import {
   EARTH_CHARACTERISTICS,
   FULL_HEIGHT,
   FULL_WIDTH,
+  STEP,
 } from '../../consts';
 import SettingsPanel from '../SettingsPanel';
 
@@ -34,42 +35,55 @@ const radialGradient = new FillGradient({
 
 export default function App() {
   const [currentPlanets, setCurrentPlanets] = useState(planets);
+  const [isHabitableZoneVisible, setIsHabitableZoneVisible] = useState(false);
+  const [currentStep, setCurrentStep] = useState(STEP);
 
   return (
     <div className="app">
-      <SettingsPanel />
+      <SettingsPanel
+        setIsHabitableZoneVisible={setIsHabitableZoneVisible}
+        setCurrentStep={setCurrentStep}
+        isHabitableZoneVisible={isHabitableZoneVisible}
+        currentStep={currentStep}
+      />
       <Application
         width={FULL_WIDTH}
         height={FULL_HEIGHT}
         autoStart
         sharedTicker
       >
-        <AstroField planets={currentPlanets} setPlanets={setCurrentPlanets} />
-        <pixiGraphics
-          /* eslint-disable react/no-unknown-property */
-          position={currentPlanets[0].position}
-          draw={(g) => {
-            g.clear();
-            g.setFillStyle({ fill: radialGradient, alpha: 0.35 });
-            g.circle(
-              0,
-              0,
-              (SUN_CHARACTERISTICS.DEFAULT_POSITION.x -
-                EARTH_CHARACTERISTICS.DEFAULT_POSITION.x) *
-                1.24
-            );
-            g.fill();
-            g.circle(
-              0,
-              0,
-              (SUN_CHARACTERISTICS.DEFAULT_POSITION.x -
-                EARTH_CHARACTERISTICS.DEFAULT_POSITION.x) *
-                0.725
-            );
-            g.cut();
-          }}
-          /* eslint-enable react/no-unknown-property */
+        <AstroField
+          planets={currentPlanets}
+          setPlanets={setCurrentPlanets}
+          currentStep={currentStep}
         />
+        {isHabitableZoneVisible && (
+          <pixiGraphics
+            /* eslint-disable react/no-unknown-property */
+            position={currentPlanets[0].position}
+            draw={(g) => {
+              g.clear();
+              g.setFillStyle({ fill: radialGradient, alpha: 0.35 });
+              g.circle(
+                0,
+                0,
+                (SUN_CHARACTERISTICS.DEFAULT_POSITION.x -
+                  EARTH_CHARACTERISTICS.DEFAULT_POSITION.x) *
+                  1.24
+              );
+              g.fill();
+              g.circle(
+                0,
+                0,
+                (SUN_CHARACTERISTICS.DEFAULT_POSITION.x -
+                  EARTH_CHARACTERISTICS.DEFAULT_POSITION.x) *
+                  0.725
+              );
+              g.cut();
+            }}
+            /* eslint-enable react/no-unknown-property */
+          />
+        )}
       </Application>
     </div>
   );

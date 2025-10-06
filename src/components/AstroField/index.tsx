@@ -5,20 +5,21 @@ import { Planet } from '../../types';
 
 interface AstroFieldProps {
   planets: Planet[];
+  currentStep: number;
   setPlanets: (planets: Planet[]) => void;
 }
 
-const AstroField = ({ planets, setPlanets }: AstroFieldProps) => {
+const AstroField = ({ planets, setPlanets, currentStep }: AstroFieldProps) => {
   useTick(() => {
     for (const planet of planets) {
-      const newPlanet = updatePlanet(planet, planets);
+      const newPlanet = updatePlanet(planet, planets, currentStep);
       const copy = structuredClone(planets);
       const filtered = copy.filter((cur) => cur.name !== planet.name);
       setPlanets([...filtered, newPlanet]);
     }
   });
 
-  return planets.map(({ position, color, size, strokeColor, velocity }, i) => (
+  return planets.map(({ position, color, size, strokeColor }, i) => (
     <AstroObject
       key={i}
       position={position}
