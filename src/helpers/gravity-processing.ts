@@ -6,7 +6,7 @@ const UNIT =
   SUN_CHARACTERISTICS.DEFAULT_POSITION.x -
   EARTH_CHARACTERISTICS.DEFAULT_POSITION.x;
 
-const SCALE = 1.4981e11 / UNIT;
+export const SCALE = 1.4981e11 / UNIT;
 
 export const processGravity = (planetA: Planet, planetB: Planet) => {
   const dx = (planetB.position.x - planetA.position.x) * SCALE;
@@ -37,17 +37,18 @@ export const updatePlanet = (planet: Planet, planets: Planet[], step: number) =>
     totalYForce += forceY;
   }
 
-  const newPlanet = {
-    ...planet,
-    velocity: {
-      x: (planet.velocity.x += (totalXForce / planet.mass) * step),
-      y: (planet.velocity.y += (totalYForce / planet.mass) * step),
-    },
-    position: {
-      x: (planet.position.x += (planet.velocity.x / SCALE) * step),
-      y: (planet.position.y += (planet.velocity.y / SCALE) * step),
-    },
-  };
+  const velocity = {
+    x: planet.velocity.x + (totalXForce / planet.mass) * step,
+    y: planet.velocity.y + (totalYForce / planet.mass) * step,
+  }
 
-  return newPlanet;
+  const position = {
+    x: planet.position.x + (velocity.x / SCALE) * step,
+    y: planet.position.y + (velocity.y / SCALE) * step,
+  }
+
+  return {
+    velocity,
+    position
+  }
 };

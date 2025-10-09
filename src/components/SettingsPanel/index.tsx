@@ -1,16 +1,19 @@
-interface SettingsPanelProps {
-  isHabitableZoneVisible: boolean;
-  currentStep: number;
-  setCurrentStep: (value: number) => void;
-  setIsHabitableZoneVisible: (value: boolean) => void;
-}
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import {
+  setStep,
+  setIsHabitableZoneEnabled,
+  setIsSimulationRunning,
+} from '../../store/settings/settingsSlice';
+import { selectSettings } from '../../store/settings/settingsSlice';
+import { selectTargetPlanet } from '../../store/planets/planetsSlice';
 
-const SettingsPanel = ({
-  isHabitableZoneVisible,
-  setIsHabitableZoneVisible,
-  setCurrentStep,
-  currentStep,
-}: SettingsPanelProps) => {
+const SettingsPanel = () => {
+  const { isHabitableZoneEnabled, isSimulationRunning, step } =
+    useAppSelector(selectSettings);
+  const targetPlanet = useAppSelector(selectTargetPlanet);
+
+  const dispatch = useAppDispatch();
+
   return (
     <aside className="settings">
       <h2>Опции</h2>
@@ -20,8 +23,10 @@ const SettingsPanel = ({
           type="range"
           min="10000"
           max="200000"
-          value={currentStep}
-          onChange={() => setCurrentStep(Number((event?.target as HTMLInputElement).value))}
+          value={step}
+          onChange={() =>
+            dispatch(setStep(Number((event?.target as HTMLInputElement).value)))
+          }
         />
       </div>
       <label>
@@ -30,9 +35,38 @@ const SettingsPanel = ({
           type="checkbox"
           id="habitableZone"
           name="habitable zone"
-          onChange={() => setIsHabitableZoneVisible(!isHabitableZoneVisible)}
+          onChange={() =>
+            dispatch(setIsHabitableZoneEnabled(!isHabitableZoneEnabled))
+          }
         />
       </label>
+      <label>
+        Включить симуляцию
+        <input
+          type="checkbox"
+          id="isSimulationRunning"
+          name="isSimulationRunning"
+          checked={isSimulationRunning}
+          onChange={() =>
+            dispatch(setIsSimulationRunning(!isSimulationRunning))
+          }
+        />
+      </label>
+      {targetPlanet && (
+        <div>
+          <h3>Выбранная планета:</h3>
+          <p>Название: {targetPlanet.name}</p>
+          <p>Масса: {targetPlanet.mass} кг</p>
+          <p>Радиус: {targetPlanet.size} м</p>
+          <p>
+            Текущая скорость:
+            {Math.sqrt(
+              targetPlanet.velocity.x * targetPlanet.velocity.x +
+                targetPlanet.velocity.y * targetPlanet.velocity.y
+            )}
+          </p>
+        </div>
+      )}
     </aside>
   );
 };

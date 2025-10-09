@@ -1,20 +1,28 @@
+import { Planet } from '../../types';
+import { useAppDispatch } from '../../store/hooks';
+import { setTargetPlanetId } from '../../store/planets/planetsSlice';
+
 interface AstroObjectProps {
-  color: string;
-  size: number;
-  position: { x: number; y: number };
-  strokeColor: string;
+  planet: Planet;
 }
 
-const AstroObject = ({
-  color,
-  size,
-  position,
-  strokeColor,
-}: AstroObjectProps) => {
+const AstroObject = ({ planet }: AstroObjectProps) => {
+  const { position, size, strokeColor, color } = planet;
+
+  const dispatch = useAppDispatch();
+
   return (
     /* eslint-disable react/no-unknown-property */
     <pixiGraphics
       position={position}
+      interactive={true}
+      eventMode="dynamic"
+      onPointerDown={() => {
+        dispatch(setTargetPlanetId(planet.id));
+      }}
+      onMouseEnter={() => {
+        console.log('dsfsdf');
+      }}
       draw={(graphics) => {
         graphics.clear();
         graphics.setFillStyle({ color });
