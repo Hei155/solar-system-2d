@@ -1,8 +1,14 @@
 const config = {
-  trailingComma: 'es5',
-  tabWidth: 2,
-  semi: true,
   singleQuote: true,
+  arrowParens: 'always',
+  bracketSpacing: true,
+  bracketSameLine: false,
+  printWidth: 80,
+  proseWrap: 'always',
+  semi: true,
+  tabWidth: 2,
+  trailingComma: 'all',
+  useTabs: false,
 };
 
 export default config;

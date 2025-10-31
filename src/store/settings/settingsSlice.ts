@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isHabitableZoneEnabled: false,
-  isSimulationRunning: true,
+  isSimulationRunning: false,
   step: 100000,
 };
 
 const settingsSlice = createSlice({
-  name: "settings",
+  name: 'settings',
   initialState,
 
   reducers: {
@@ -21,12 +21,14 @@ const settingsSlice = createSlice({
 
     setStep: (state, action) => {
       state.step = action.payload;
-    }
-  }
+    },
+  },
 });
 
-export const selectSettings = (state: { settings: typeof initialState }) => state.settings;
+export const selectSettings = (state: { settings: typeof initialState }) =>
+  state.settings;
 
-export const { setIsHabitableZoneEnabled, setStep, setIsSimulationRunning } = settingsSlice.actions;
+export const { setIsHabitableZoneEnabled, setStep, setIsSimulationRunning } =
+  settingsSlice.actions;
 
 export default settingsSlice.reducer;

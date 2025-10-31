@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Planet } from "../../types";
-import { planets } from "../../consts";
+import { createSlice } from '@reduxjs/toolkit';
+import { Planet } from '../../types';
+import { planets } from '../../consts';
 
 export interface PlanetsState {
   planetsList: Planet[];
@@ -13,7 +13,7 @@ const initialState: PlanetsState = {
 };
 
 export const planetsSlice = createSlice({
-  name: "planets",
+  name: 'planets',
   initialState: initialState,
 
   reducers: {
@@ -28,20 +28,24 @@ export const planetsSlice = createSlice({
     updatePlanet: (state, action) => {
       const { id, ...fields } = action.payload;
       state.planetsList = state.planetsList.map((p) => {
-
-        if (p.id === id) { 
+        if (p.id === id) {
           return { ...p, ...fields };
         }
 
         return p;
       });
-    }
-  }
+    },
+  },
 });
 
-export const selectPlanets = (state: { planets: PlanetsState }) => state.planets.planetsList;
-export const selectTargetPlanet = (state: { planets: PlanetsState }) => state.planets.planetsList.find(p => p.id === state.planets.targetPlanetId) || null;
+export const selectPlanets = (state: { planets: PlanetsState }) =>
+  state.planets.planetsList;
+export const selectTargetPlanet = (state: { planets: PlanetsState }) =>
+  state.planets.planetsList.find(
+    (p) => p.id === state.planets.targetPlanetId,
+  ) || null;
 
-export const { setPlanets, updatePlanet, setTargetPlanetId } = planetsSlice.actions;
+export const { setPlanets, updatePlanet, setTargetPlanetId } =
+  planetsSlice.actions;
 
 export default planetsSlice.reducer;

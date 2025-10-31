@@ -1,3 +1,3 @@
 export * from './planets';
-export * from './planets-characteristics';
 export * from './gravity';
+export * from './planets-characteristics';
